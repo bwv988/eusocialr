@@ -1,0 +1,19 @@
+Package: eusocialr
+Type: Package
+Title: Access and work with social Eurostat data (Eurostat)
+Version: 0.1.0
+Authors@R: person("Ralph", "Schlosser", email = "ralph.schlosseR@gmail.com", role = c("aut", "cre"))
+Description: Produces plots etc.
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+Suggests: testthat
+Imports: tidyverse,
+    eurostat,
+    ggplot2,
+    tigris,
+    leaflet,
+    htmltools,
+    forecast,
+    magrittr
+RoxygenNote: 6.0.1
