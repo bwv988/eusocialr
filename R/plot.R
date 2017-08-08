@@ -1,18 +1,22 @@
-#' Renders a \emph{Coropleth} map of the NUTS2013 regions for the selected data subset
+#' Renders an interactive \emph{Coropleth} map of the NUTS2013 regions for the selected data subset
 #'
 #' @param age.s Selected age group.
 #' @param sex.s Selected gender.
 #' @param time.s Selected time.
 #'
-#' @return
+#' @return Interactive Coropleth map rendered using \code{leaflet}.
 #' @import leaflet
 #' @export
 #'
 #' @examples
+#'
+#' # Load the data.
 #' load_eurostat_data()
 #'
+#' # TBD.
 #' plot_nuts2013_coropleth()
 #'
+#' # Create an interactive coropleth map of unemployed peopled aged 15 to 24 for 2016.
 #' plot_nuts2013_coropleth(time.s = 2016, sex.s = "T", age.s = "Y15-24")
 plot_nuts2013_coropleth = function(age.s = "Y_GE25",
                           sex.s = "T",
@@ -145,16 +149,30 @@ generate_infobox = function(age.s = "Y_GE25",
   )
 }
 
-#' Title
+#' Comparative plots of Eurostat time series
 #'
-#' @param obj
+#' This function produces a neat plot of Eurostat time series data.
+#'
+#' @param obj Time series data frame with \code{x}
 #' @param title.s
 #'
 #' @return
+#' @import ggplot2
 #' @export
-#'
+#' @seealso \link{\code{plot_nuts2013_coropleth}}
 #' @examples
+#'
+#' # Create a plot comparing unemployment in different countries.
+#'
+#' load_eurostat_data()
+#' selected.geos = c("ES", "DE", "IE")
+#' compare.data = get_data() %>% filter_data(geo.s = selected.geos)
+#' plot_eu_ts(compare.data, title.s = "Unemployment in Europe")
 plot_eu_ts = function(obj, title.s) {
+  # FIXME: Could do the load once.
+  nuts.mapping = load_nuts_mapping()
+  browser()
+  obj = merge_geo_description(obj, nuts.mapping)
   p = ggplot(obj, aes(x = time, y = values, colour = desc))
   p = p + geom_line()
   p = p + theme_bw()

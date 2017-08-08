@@ -7,7 +7,7 @@
 #' @return Eurostat data
 #' @export
 #'
-#' @seealso \link{\code{load_eurostat_data()}}
+#' @seealso \link{\code{load_eurostat_data}}
 #' @examples
 #' load_eurostat_data()
 #' df = get_data()
@@ -18,6 +18,7 @@ get_data = function(code = "lfst_r_lfu3rt") {
   # Return the selected data.
   get(var.name, envir = .GlobalEnv)
 }
+
 
 merge_geo_description = function(data.raw, mapping) {
   # Create common set of factors.
@@ -40,7 +41,7 @@ merge_geo_description = function(data.raw, mapping) {
 #'
 #' This function removes data frames loaded by the package from the Eurostat database.
 #' @export
-#' @seealso \link{\code{load_eurostat_data()}}
+#' @seealso \link{\code{load_eurostat_data}}
 #' @examples
 #' clear_data()
 clear_data = function() {

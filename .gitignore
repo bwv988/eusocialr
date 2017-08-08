@@ -4,3 +4,4 @@ man/
 .Rbuildignore
 .Rhistory
 
+.Rproj.user

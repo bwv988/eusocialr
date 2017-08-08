@@ -11,7 +11,7 @@
 #' @return Data will be loaded into the global R environment (\code{.GlobalEnv}). Each loaded table is prefixed with: "\code{uedata.}".
 #' @export
 #' @import magrittr dplyr eurostat
-#' @seealso \code{\link{get_data()}}, \code{\link{clear_eurostat_data()}}, \code{\link{eurostat::get_eurostat()}}
+#' @seealso \code{\link{get_data}}, \code{\link{clear_eurostat_data}}, \code{\link{get_eurostat}}
 #' @examples
 #' load_eurostat_data()
 #' load_eurostat_data(cache.dir = "/tmp")

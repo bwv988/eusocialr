@@ -11,7 +11,7 @@
 #' @return Filtered Eurostat data.
 #' @export
 #' @import dplyr
-#' @seealso \link{\code{filter_nuts2013_data()}}
+#' @seealso \link{\code{filter_nuts2013_data}}
 #' @examples
 #' TBD
 
