@@ -28,7 +28,7 @@ merge_geo_description = function(data.raw, mapping) {
   t = left_join(mutate(data.raw,
                        geo = factor(geo,
                                     levels = combined)),
-                mutate(nuts.mapping,
+                mutate(mapping,
                        geo = factor(geo,
                                     levels = combined)))
 

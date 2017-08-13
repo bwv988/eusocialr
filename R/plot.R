@@ -159,13 +159,13 @@ generate_infobox = function(age.s = "Y_GE25",
 #'
 #' This function produces a neat plot of Eurostat time series data.
 #'
-#' @param obj Time series data frame with \code{x}
-#' @param title.s The title
+#' @param obj Time series data frame with \code{x}.
+#' @param title.s The plot's title.
 #'
-#' @return A plot.
+#' @return A comparative plot rendered using \code{ggplot2}.
 #' @import ggplot2
 #' @export
-#' @seealso \link{\code{plot_nuts2013_coropleth}}
+#' @seealso \code{\link{plot_nuts2013_coropleth}}
 #' @examples
 #'
 #' # Create a plot comparing unemployment in different countries.
@@ -179,7 +179,6 @@ generate_infobox = function(age.s = "Y_GE25",
 plot_eu_ts = function(obj, title.s) {
   # FIXME: Could do the load once.
   nuts.mapping = load_nuts_mapping()
-  browser()
   obj = merge_geo_description(obj, nuts.mapping)
   p = ggplot(obj, aes(x = time, y = values, colour = desc))
   p = p + geom_line()
