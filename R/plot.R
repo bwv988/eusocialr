@@ -1,12 +1,14 @@
 #' Coropleth map plot of Eurostat data
-#' 
+#'
 #' This function renders an interactive \emph{Coropleth} map of the NUTS2013 regions for the selected data subset.
-#' 
+#'
 #' @param age.s Selected age group.
 #' @param sex.s Selected gender.
 #' @param time.s Selected time.
 #'
 #' @return Interactive Coropleth map rendered using \code{leaflet}.
+#' @seealso \code{\link{plot_eu_ts}}
+#'
 #' @import leaflet tigris magrittr htmltools
 #' @export
 #'
@@ -15,7 +17,7 @@
 #' # Load the data.
 #' load_eurostat_data(time.format = "raw")
 #'
-#' # TBD.
+#' # Using defaults.
 #' plot_nuts2013_coropleth()
 #'
 #' # Create an interactive coropleth map of unemployed peopled aged 15 to 24 for 2016.
@@ -23,15 +25,17 @@
 plot_nuts2013_coropleth = function(age.s = "Y_GE25",
                           sex.s = "T",
                           time.s = "2010") {
+  # Ugly hack...
+  . = NULL
   # FIXME: Have parameter list with allowed params.
   # FIXME: Error-handling is zilch.
-  
+
   # FIXME: Should load this only once.
   nuts.mapping = load_nuts_mapping()
-  
+
   # Merge data with geo data.
   # Also, merge real area name.
-  plot.data.geo = get_data() %>% filter_data(age.s = age.s,
+  plot.data.geo = get_eurostat_data() %>% filter_eurostat_data(age.s = age.s,
                                              sex.s = sex.s) %>%
     filter_nuts2013_data(time.s = time.s) %>%
     merge_eurostat_geodata(
@@ -169,14 +173,16 @@ generate_infobox = function(age.s = "Y_GE25",
 #' @examples
 #'
 #' # Create a plot comparing unemployment in different countries.
-#' 
+#'
 #' library(magrittr)
 #' load_eurostat_data()
 #' selected.geos = c("ES", "DE", "IE")
-#' compare.data = get_data() %>% filter_data(geo.s = selected.geos)
-#' plot_eu_ts(compare.data, title.s = "Unemployment in Europe")
-#' 
+#' compare.data = get_eurostat_data() %>% filter_eurostat_data(geo.s = selected.geos)
+#' plot_eu_ts(compare.data,
+#'            title.s = "Comparison of unemployment in Europe\nfor people aged 25 and above")
+#'
 plot_eu_ts = function(obj, title.s) {
+  time = values = NULL
   # FIXME: Could do the load once.
   nuts.mapping = load_nuts_mapping()
   obj = merge_geo_description(obj, nuts.mapping)

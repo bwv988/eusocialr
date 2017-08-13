@@ -3,15 +3,18 @@
 #' This is simply a helper function.
 #'
 #' @param code The name of an Eurostat table which was previously loaded with \code{load_eurostat_data()}.
+#' Default: \code{"lfst_r_lfu3rt"}
 #'
 #' @return Eurostat data
 #' @export
 #'
-#' @seealso \link{\code{load_eurostat_data}}
+#' @seealso \code{\link{load_eurostat_data}}
+#'
 #' @examples
+#'
 #' load_eurostat_data()
-#' df = get_data()
-get_data = function(code = "lfst_r_lfu3rt") {
+#' df = get_eurostat_data()
+get_eurostat_data = function(code = "lfst_r_lfu3rt") {
   # Construct a variale name for the relevant data.
   var.name = paste0("uedata.", code)
 
@@ -21,6 +24,7 @@ get_data = function(code = "lfst_r_lfu3rt") {
 
 
 merge_geo_description = function(data.raw, mapping) {
+  geo = NULL
   # Create common set of factors.
   combined = sort(union(levels(data.raw$geo), levels(mapping$geo)))
 
@@ -39,12 +43,16 @@ merge_geo_description = function(data.raw, mapping) {
 
 #' Clear loaded Eurostat dataframes
 #'
-#' This function removes data frames loaded by the package from the Eurostat database.
+#' This function removes previously created data frames stored the \code{.GlobalEnv}.
+#'
 #' @export
-#' @seealso \link{\code{load_eurostat_data}}
+#'
+#' @seealso \code{\link{load_eurostat_data}}
+#'
 #' @examples
-#' clear_data()
-clear_data = function() {
+#'
+#' clear_eurostat_data()
+clear_eurostat_data = function() {
   # List all variables in environment.
   vars = ls(pos = .GlobalEnv)
 

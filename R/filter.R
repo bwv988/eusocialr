@@ -1,7 +1,8 @@
 #' Filter Eurostat data by age group, sex, and location
 #'
-#' This function is intended to be used with a certain set of Eurostat tables.
-#' For NUTS 2013 region tables, see: \link{\code{filter_nuts2013_data()}}.
+#' This function is intended to be used with a certain set of Eurostat tables which record age, sex and location.
+#'
+#' For NUTS 2013 region tables, see: \code{\link{filter_nuts2013_data}}.
 #'
 #' @param data.raw The input data table from the Eurostat data base.
 #' @param age.s Age group
@@ -9,18 +10,29 @@
 #' @param geo.s A single location, or list of multiple locations.
 #'
 #' @return Filtered Eurostat data.
+#'
 #' @export
-#' @import dplyr
-#' @seealso \link{\code{filter_nuts2013_data}}
+#'
+#' @seealso \code{\link{filter_nuts2013_data}}
+#'
 #' @examples
-#' TBD
+#'
+#' library(magrittr)
+#' load_eurostat_data()
+#' # Get subset of data for ages 15-24.
+#' get_eurostat_data() %>% filter_eurostat_data(age.s = "Y15-24")
 
-filter_data = function(data.raw,
+filter_eurostat_data = function(data.raw,
                        age.s = "Y_GE25",
                        sex.s = "T",
                        geo.s = NULL) {
   # FIXME: Parameter check.
-   r = NULL
+  # FIXME: Have parameter list with allowed params.
+
+  # In order to get rid of "NOTE"
+  age = sex = geo = NULL
+
+  r = NULL
   if (is.null(geo.s)) {
     r = data.raw %>% filter(age == age.s &
                               sex == sex.s)
@@ -55,9 +67,10 @@ filter_data = function(data.raw,
 #'
 #' library(magrittr)
 #' load_eurostat_data(time.format = "raw")
-#' df = get_data() %>% filter_nuts2013_data()
+#' df = get_eurostat_data() %>% filter_nuts2013_data()
 filter_nuts2013_data = function(data.raw,
                                 time.s = "2010") {
+  time = geo = NULL
   data.raw %>%
     mutate(time = eurotime2num(time)) %>%
     filter(time == time.s & nchar(as.character(geo)) == 4)

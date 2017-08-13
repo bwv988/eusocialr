@@ -5,3 +5,4 @@ man/
 .Rhistory
 
 .Rproj.user
+inst/doc
