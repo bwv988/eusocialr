@@ -32,6 +32,7 @@ load_eurostat_data = function(code = "lfst_r_lfu3rt",
   var.name = paste0("uedata.", code)
 
   # For simplicity, we will store this variable globally.
+  # FIXME: This is against best-practices for R packages.
   assign(
     var.name,
     get_eurostat(

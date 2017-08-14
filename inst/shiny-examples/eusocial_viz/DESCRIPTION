@@ -1,0 +1,7 @@
+Type: Shiny
+Title: Simple vizualizations for Eurostat data.
+License: GPL >= 2.0
+Author: Ralph Schlosser <ralph.schlosser@gmail.com>
+AuthorUrl: www.warpbreaks.io
+Tags: visualization
+DisplayMode: Showcase

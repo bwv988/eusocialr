@@ -2,8 +2,8 @@
 #'
 #' This function renders an interactive \emph{Coropleth} map of the NUTS2013 regions for the selected data subset.
 #'
-#' @param age.s Selected age group.
-#' @param sex.s Selected gender.
+#' @param age.a Selected age group.
+#' @param sex.a Selected gender.
 #' @param time.s Selected time.
 #'
 #' @return Interactive Coropleth map rendered using \code{leaflet}.
@@ -22,21 +22,23 @@
 #'
 #' # Create an interactive coropleth map of unemployed peopled aged 15 to 24 for 2016.
 #' plot_nuts2013_coropleth(time.s = 2016, sex.s = "T", age.s = "Y15-24")
-plot_nuts2013_coropleth = function(age.s = "Y_GE25",
-                          sex.s = "T",
+plot_nuts2013_coropleth = function(age.a = c("Y_GE25", "Y15-24", "Y15-74", "Y20-64", "Y_GE15"),
+                                   sex.a = c("T", "M", "F"),
                           time.s = "2010") {
   # Ugly hack...
   . = NULL
-  # FIXME: Have parameter list with allowed params.
-  # FIXME: Error-handling is zilch.
+
+  # Match parameters.
+  age.s = match.arg(age.a)
+  sex.s = match.arg(sex.a)
 
   # FIXME: Should load this only once.
   nuts.mapping = load_nuts_mapping()
 
   # Merge data with geo data.
   # Also, merge real area name.
-  plot.data.geo = get_eurostat_data() %>% filter_eurostat_data(age.s = age.s,
-                                             sex.s = sex.s) %>%
+  plot.data.geo = get_eurostat_data() %>% filter_eurostat_data(age.a = age.s,
+                                             sex.a = sex.s) %>%
     filter_nuts2013_data(time.s = time.s) %>%
     merge_eurostat_geodata(
       data = .,
