@@ -113,7 +113,7 @@ filter_ts_data = function(data.raw,
   indic.s = paste0("LM-UN-", sex.s, "-", age.s)
 
   # Hack to prevent warning...
-  indic = s_adj = geo = NULL
+  indic = s_adj = geo = values = time = NULL
 
   # Perform filtering.
   if(is.null(geo.s)) {

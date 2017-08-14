@@ -1,6 +1,6 @@
 Package: eusocialr
 Type: Package
-Title: Load, filter, plot, and model social datasets from the Eurostat data base.
+Title: Load, filter, plot, and model social datasets from the Eurostat data base
 Version: 0.1.0
 Authors@R: person("Ralph", "Schlosser", email = "ralph.schlosser@gmail.com", role = c("aut", "cre"))
 Description: This package has various functions to filter and analyze Eurostat data, both graphically as well as numerically.

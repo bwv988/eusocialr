@@ -8,12 +8,14 @@
 #' @param model.type What kind of model should be fitted. Possible values: \code{arima, arfima}.
 #'
 #' @return A list containing the fitted model and forecasts.
-#' @import forecast fracdiff
+#' @import forecast
 #' @export
 #'
 #' @examples
 #'
 #' # Apply time series models to Irish unemployment data.
+#'
+#' library(magrittr)
 #' load_eurostat_data(code = "ei_lmhu_m")
 #' ireland.unemp.timeseries = get_eurostat_data(code = "ei_lmhu_m") %>%
 #'     filter_ts_data(geo.s = "IE")

@@ -21,7 +21,7 @@
 #' plot_nuts2013_coropleth()
 #'
 #' # Create an interactive coropleth map of unemployed peopled aged 15 to 24 for 2016.
-#' plot_nuts2013_coropleth(time.s = 2016, sex.s = "T", age.s = "Y15-24")
+#' plot_nuts2013_coropleth(sex.a = "T", age.a = "Y15-24", time.s = 2016)
 plot_nuts2013_coropleth = function(age.a = c("Y_GE25", "Y15-24", "Y15-74", "Y20-64", "Y_GE15"),
                                    sex.a = c("T", "M", "F"),
                           time.s = "2010") {
