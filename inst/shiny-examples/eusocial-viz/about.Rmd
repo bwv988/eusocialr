@@ -1,0 +1,3 @@
+# eusocial.viz
+
+This is a quick Shiny Dashboard app to demonstrate the `eusocialr` package.

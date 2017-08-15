@@ -1,5 +1,5 @@
 Type: Shiny
-Title: Simple vizualizations for Eurostat data.
+Title: Simple vizualizations for Eurostat data, based on the eusocialr library.
 License: GPL >= 2.0
 Author: Ralph Schlosser <ralph.schlosser@gmail.com>
 AuthorUrl: www.warpbreaks.io

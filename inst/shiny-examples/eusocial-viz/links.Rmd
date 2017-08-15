@@ -1,0 +1,7 @@
+# Links
+
+Here are some further links:
+
+* Eurostat main page: http://ec.europa.eu/eurostat
+* Eurostat R package: https://cran.r-project.org/web/packages/eurostat/index.html
+
