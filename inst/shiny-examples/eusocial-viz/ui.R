@@ -62,7 +62,7 @@ body = dashboardBody(tabItems(
           h4("Age group"),
           hr(),
           radioButtons(
-            "radioage",
+            "radioage1",
             label = NULL,
             choices = list(
               ">= 25 years" = "Y_GE25",
@@ -85,7 +85,7 @@ body = dashboardBody(tabItems(
           h4("Gender"),
           hr(),
           radioButtons(
-            "radiosex",
+            "radiosex1",
             label = NULL,
             choices = list(
               "Total" = "T",
@@ -110,7 +110,7 @@ body = dashboardBody(tabItems(
           hr(),
           # FIXME: Must be a more efficient way to generate this.
           selectInput(
-            "year",
+            "year1",
             label = NULL,
             choices = c(
               "1999" = "1999",
@@ -167,7 +167,7 @@ body = dashboardBody(tabItems(
           h4("Age group"),
           hr(),
           radioButtons(
-            "radioage",
+            "radioage2",
             label = NULL,
             choices = list(
               ">= 25 years" = "Y_GE25",
@@ -190,7 +190,7 @@ body = dashboardBody(tabItems(
           h4("Gender"),
           hr(),
           radioButtons(
-            "radiosex",
+            "radiosex2",
             label = NULL,
             choices = list(
               "Total" = "T",
@@ -237,13 +237,11 @@ body = dashboardBody(tabItems(
             width = 12,
             box(
               width = NULL,
-              p(paste("This is a quick comparison of ARIMA and ARFIMA modeling on UK unemployment.")),
-              hr(),
               h4("ARIMA model results"),
-              verbatimTextOutput("arimamodel"),
+              htmlOutput("arimamodel"),
               hr(),
-              h4("AFRIMA model results"),
-              verbatimTextOutput("arfimamodel"),
+              h4("ARFIMA model results"),
+              htmlOutput("arfimamodel"),
               collapsible = FALSE,
               title = "ARIMA and ARFIMA models for UK unemployment data",
               status = "primary",

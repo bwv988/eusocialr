@@ -5,14 +5,26 @@
 library(eusocialr)
 library(magrittr)
 
+# FIXME: Very ugly utility function.
+modelres_render = function(caption, obj) {
+  l = capture.output(print(obj))
+  str = caption
+  for (i in 1:length(l)) {
+    str = paste(str, l[i], sep = "<br/>")
+  }
+
+  str
+}
+
+
 server = function(input, output) {
   output$coroplot = renderLeaflet({
     # FIXME: Not very efficient, should use reactive expressions.
     load_eurostat_data(time.format = "raw")
     map = plot_nuts2013_coropleth(
-      age.a = input$radioage,
-      sex.a = input$radiosex,
-      time.s = input$year
+      age.a = input$radioage1,
+      sex.a = input$radiosex1,
+      time.s = input$year1
     )
     map
   })
@@ -25,8 +37,8 @@ server = function(input, output) {
     if(!is.null(selected.geos)) {
       compare.data = get_eurostat_data() %>%
         filter_eurostat_data(
-          age.a = input$radioage,
-          sex.a = input$radiosex,
+          age.a = input$radioage2,
+          sex.a = input$radiosex2,
           geo.s = selected.geos
         )
       plot_eu_ts(compare.data,
@@ -34,14 +46,24 @@ server = function(input, output) {
     }
   })
 
-  output$arimamodel = renderText({
+  output$arimamodel = renderUI({
     load_eurostat_data(code = "ei_lmhu_m")
     ts = get_eurostat_data(code = "ei_lmhu_m") %>%
       filter_ts_data(geo.s = "UK")
       res.arima = forecast_eu_unemp(ts$values)
-      cat("\nTime series model:\n", res.arima$model, "\nOne-step ahead-forecast:\n", res.arima$forecast)
+      p1 = modelres_render("*** Model results ***", res.arima$model)
+      p2 = modelres_render("*** One-step ahead prediction ***", res.arima$forecast)
+      HTML(paste0("<p><pre>", p1, "<br/><br/>", p2, "</pre></p>"))
   })
 
-  output$arfimamodel = renderText("ARFIMA")
+  output$arfimamodel = renderUI({
+    load_eurostat_data(code = "ei_lmhu_m")
+    ts = get_eurostat_data(code = "ei_lmhu_m") %>%
+      filter_ts_data(geo.s = "UK")
+    res.arfima = forecast_eu_unemp(ts$values, model.type = "arfima")
+    p1 = modelres_render("*** Model results ***", res.arfima$model)
+    p2 = modelres_render("*** One-step ahead prediction ***", res.arfima$forecast)
+    HTML(paste0("<p><pre>", p1, "<br/><br/>", p2, "</pre></p>"))
+  })
 
 }
