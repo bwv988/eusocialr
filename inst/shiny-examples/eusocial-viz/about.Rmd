@@ -1,3 +1,3 @@
-# eusocial.viz
+## eusocial.viz
 
-This is a quick Shiny Dashboard app to demonstrate the `eusocialr` package.
+This is a quick Shiny Dashboard app to demonstrate some of the functions of the `eusocialr` package.

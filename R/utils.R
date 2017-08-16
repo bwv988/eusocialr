@@ -36,8 +36,14 @@ merge_geo_description = function(data.raw, mapping) {
                        geo = factor(geo,
                                     levels = combined)))
 
+  # Replace NA values (i.e. no mapping found).
+  t$desc[is.na(t$desc)] = "EU region"
+
   # Make sure "desc" is a factor variable.
   t$desc = as.factor(t$desc)
+
+
+
   t
 }
 

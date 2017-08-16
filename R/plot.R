@@ -187,6 +187,7 @@ plot_eu_ts = function(obj, title.s) {
   time = values = NULL
   # FIXME: Could do the load once.
   nuts.mapping = load_nuts_mapping()
+
   obj = merge_geo_description(obj, nuts.mapping)
   p = ggplot(obj, aes(x = time, y = values, colour = desc))
   p = p + geom_line()
