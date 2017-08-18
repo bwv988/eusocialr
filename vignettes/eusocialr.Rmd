@@ -43,6 +43,7 @@ However, the package's functions are reasonably generic and could be extended to
 The package may be installed as `.tar.gz` file, or, provided the `devtools` package is available, from GitHub directly:
 
 ```{r eval=FALSE}
+install.packages("devtools")
 devtools::install_github("bwv988/eusocialr")
 ```
 

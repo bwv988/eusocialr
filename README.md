@@ -16,6 +16,7 @@ Requires `devtools` installed and set-up (and "R tools" when installing on Windo
 Install directly from GitHub:
 
 ```r
+install.packages("devtools")
 devtools::install_github("bwv988/eusocialr")
 ```
 
