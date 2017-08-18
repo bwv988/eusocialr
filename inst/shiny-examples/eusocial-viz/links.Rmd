@@ -2,6 +2,11 @@
 
 Here are some further links:
 
-* Eurostat main page: http://ec.europa.eu/eurostat
-* Eurostat R package: https://cran.r-project.org/web/packages/eurostat/index.html
+* Eurostat homepage: [http://ec.europa.eu](http://ec.europa.eu)
+
+* R Package `eurostat`: [https://cran.r-project.org/web/packages/eurostat/index.html](https://cran.r-project.org/web/packages/eurostat/index.html)
+
+* NUTS local administrative units definition: http://ec.europa.eu/eurostat/web/nuts/local-administrative-units
+
+* A paper on applying ARFIMA models to unemployment data: https://www.jstor.org/stable/20076284
 

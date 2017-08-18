@@ -3,6 +3,11 @@
 Author: Ralph Schlosser ralph.schlosser@gmail.com
 
 ### Description
+
 This is a quick Shiny Dashboard app to demonstrate some of the functions of the `eusocialr` package.
 
+### Github
 
+The full code can be found here:
+
+https://github.com/bwv988/eusocialr

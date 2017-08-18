@@ -11,8 +11,6 @@ data from the Eurostat database, beyond what is already available in the `eurost
 
 ## Usage
 
-Requires `devtools` installed and set-up (and "R tools" when installing on Windows).
-
 Install directly from GitHub:
 
 ```r
@@ -20,6 +18,10 @@ install.packages("devtools")
 devtools::install_github("bwv988/eusocialr")
 ```
 
-Check out the package vignette and function documentation for further info.
+## Shiny app
+
+Here is a simple R Shiny app to demonstrate some of the packages functions.
+
+Also, check out the package vignette and function documentation for further details.
 
 

@@ -44,6 +44,8 @@ body = dashboardBody(tabItems(
       width = 12,
       box(
         width = NULL,
+        p( class = "text-muted",
+           paste("NOTE: It will take some seconds for the data to load initially.")),
         leafletOutput("coroplot",
                       height = "500px"),
         collapsible = FALSE,
@@ -149,6 +151,8 @@ body = dashboardBody(tabItems(
       width = 12,
       box(
         width = NULL,
+        p(class = "text-muted",
+           paste("NOTE: It will take some seconds for the data to load initially.")),
         plotOutput("tsplot",
                    height = "500px"),
         collapsible = FALSE,
@@ -237,6 +241,8 @@ body = dashboardBody(tabItems(
             width = 12,
             box(
               width = NULL,
+              p(class = "text-muted",
+               paste("NOTE: It will take some seconds for the data to load initially.")),
               h4("ARIMA model results"),
               htmlOutput("arimamodel"),
               hr(),
