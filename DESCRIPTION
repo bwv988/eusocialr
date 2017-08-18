@@ -19,6 +19,7 @@ Imports: eurostat,
     magrittr,
     readr, 
     dplyr, 
-	shiny
+	shiny,
+	shinydashboard
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
