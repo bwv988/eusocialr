@@ -19,30 +19,195 @@ Most data is made accessible online via the Eurostat website. An R package exist
 
 Statistics provided by Eurostat are grouped in a number of different themes, e.g. Transport, Economy, Environment, etc.
 
-The present package -- `eusocialr` -- works with socially themed data, particulary data on unemployment. As such, augments `eurostat`'s functionality by:
+The present package -- `eusocialr` -- works with **socially themed** data, particular data on unemployment. As such, it augments `eurostat`'s functionality in several ways:
 
-* Providing functions for simplified filtering of Eurostat data in order to aggregate by age group, gender, country, time
-* Internal data handling and conversion
-* Geospatial and time series plots
-* ARIMA / ARFIMA time series analysis on unemployment data
+* Providing functions for simplified **filtering** of Eurostat data in order to be able to summarize by age group, gender, country, time
+* Internal **data handling** and conversion
+* Geo-spatial and time series **plots**
+* ARIMA / ARFIMA **time series modeling** to forecast unemployment data
 
 # Data
 
+Presently, `eusocialr` is largely designed to work with statistics that impact on society, more specifically data on **unemployment** in the EU.
+
+For this purpose, the following two Eurostat tables are of deeper interest:
+
+* `lfst_r_lfu3rt` -- Percentage of unemployment rates by sex, age, and NUTS 2013 regions -- yearly frequency.
+
+* `ei_lmhu_m` -- Harmonized unemployment by 1000 people -- monthly frequency.
+
+However, the package's functions are reasonably generic and could be extended to work with other, similarly structured tables.
+
 # Installation
 
-## Loading data
+The package may be installed as `.tar.gz` file, or, provided the `devtools` package is available, from GitHub directly:
 
-### Loading one type of data
+```{r eval=FALSE}
+devtools::install_github("bwv988/eusocialr")
+```
 
-### Loading NUTS 2013 data
+## 1. Loading the package
 
-## Filtering data
+Once the package is successfully installed, we can go ahead to retrieve and analyze unemployment data from Eurostat.
+
+For the subsequent examples, let's take a look at percentage of unemployment broken down by NUTS 2013 administrative areas (see links section for a definition):
+
+```{r, message=FALSE, warning=FALSE}
+library(eusocialr)
+
+# Install the below from the tidyverse, if needed.
+library(magrittr)
+library(dplyr)
+
+# Load data.
+load_eurostat_data()
+get_eurostat_data() %>% head
+```
+
+## 2. Exploring Eurostat data
+
+### Example 1
+
+We might be interested to learn what the average unemployment percentage figure was in the UK in 2016, for both genders. The answer can be found as shown below:
+
+
+```{r}
+# All the NUTS areas.
+all.nuts = get_eurostat_data() %>% select(geo)
+
+# Filter out only UK areas.
+uk.nuts = all.nuts[grepl("^UK*", all.nuts$geo), ]$geo
+
+# Get the average.
+uk.unemp.avg = round(get_eurostat_data() %>% 
+      filter_eurostat_data(geo.s = as.array(uk.nuts)) %>% 
+      filter(time > as.Date("2015-01-01")) %>%
+      pull(values) %>%
+      na.omit %>% 
+      mean, 2)
+      
+cat("UK average unemployment (percentage) in 2015: ", uk.unemp.avg)
+```
+
+### Example 2
+
+Another question we could ask is: What were the top 5 regions UK with the highest percentage of unemployment males aged between 15 and 24 years, in 2016:
+
+```{r}
+get_eurostat_data() %>% 
+      filter_eurostat_data(age.a = "Y15-24", 
+                           geo.s = as.array(uk.nuts), 
+                           sex.a = "M") %>% 
+      filter(time > as.Date("2015-01-01")) %>% 
+      na.omit %>% 
+      select(geo, values) %>%
+      arrange(desc(values)) %>%
+      head
+```
+
 
 ## Plotting data
 
-### Time series
+Much more interesting than just looking at dull figures is to summarize the data graphically. The `eusocialr` package provides two visualization options: *Coropleth map* and time series plots. We'll give two examples in the next paragraphs.
 
-### Coropleth map
+### Example 1: Coropleth map
+
+Going back to the previous question, we now want to get a sense of the distribution of youth unemployment in 2016 in both genders (people aged between 15 and 25 years) at a European level, that is for all EU administrative areas.
+
+For this purpose, we need to work with another table that contains raw dates, which is readily loaded from Eurostat in much the same manner as we did before.
+
+The `plot_nuts2013_coropleth()` function then renders an interactive plot. Try hovering the mouse over different regions!
+
+```{r, fig.align='center', fig.height=7.5, fig.width=7.2, message=FALSE, warning=FALSE}
+# Load the data using raw time format.
+load_eurostat_data(time.format = "raw")
+
+# Create an interactive map plot.
+plot_nuts2013_coropleth(sex.a = "T", 
+                        age.a = "Y15-24", 
+                        time.s = 2016)
+```
+
+### Example 2: Time series plot
+
+In order to better understand the different trends of unemployment across countries, we can look at a time series plot that shows the evolution of unemployment over the years. 
+
+With `eusocialr`'s filtering, we can produce such comparative plots with great ease.
+
+Below is an example where we compare unemployment in Spain, Germany, and Ireland for people of both genders, aged 25 and above:
+
+```{r fig.align='center', fig.height=6, fig.width=7.2, message=FALSE, warning=FALSE}
+# Load the data.
+load_eurostat_data()
+
+# Select some countries.
+selected.geos = c("ES", "DE", "IE")
+
+# Filter the data.
+compare.data = get_eurostat_data() %>% 
+  filter_eurostat_data(geo.s = selected.geos)
+
+# Render the time series plot.
+plot_eu_ts(compare.data,
+           title.s = "Comparison of unemployment in Europe\nfor people aged 25 and above")
+```
+
+
+## Forecasting unemployment
+
+We now wish to forecast a country's unemployment rate for the upcoming year, based on the historical Eurostat data. This can be done very simply with `eusocialr`'s `forecast_eu_unemp()` function.
+
+From a modeling perspective, we have a choice of applying *ARIMA*, or *ARFIMA* (fractionally integrated ARMA) models. 
+
+Both models have been used to predict unemployment -- see the link in the reference section -- however, since we don't have data with a very high time granularity, the model fits are generally not very useful for long-term predictions. 
+
+### Model fitting
+
+The below code shows how to fit the models and look at the residuals. 
+
+Later we can print the model summary to understand the $\mbox{AR(F)IMA}(p, d, q)$ structure.
+
+```{r message=FALSE, warning=FALSE}
+# First we need to load the data.
+load_eurostat_data(code = "ei_lmhu_m")
+ireland.unemp.timeseries = get_eurostat_data(code = "ei_lmhu_m") %>%
+    filter_ts_data(geo.s = "IE")
+
+# Get results.
+res.arima = forecast_eu_unemp(ireland.unemp.timeseries$values)
+res.arfima = forecast_eu_unemp(ireland.unemp.timeseries$values, model.type = "arfima")
+```
+
+### ARIMA results
+
+```{r}
+res.arima
+```
+
+### ARFIMA results
+
+```{r}
+res.arfima
+```
+
+### Plots
+
+As mentioned before, the model fits also provide residuals. We can plot these, and it turns out the residuals are actually not too bad:
+
+```{r fig.align='center', fig.height=6, fig.width=7.2, message=FALSE, warning=FALSE}
+# Plot residuals.
+par(mfrow = c(2, 1))
+
+plot(res.arima$model$residuals,
+    main = "ARIMA Residuals",
+    ylab = "Residuals",
+    col = "blue")
+
+plot(res.arfima$model$residuals,
+    main = "ARFIMA Residuals",
+    ylab = "Residuals",
+    col = "red")
+```
 
 # References and further links
 
@@ -50,3 +215,8 @@ The present package -- `eusocialr` -- works with socially themed data, particula
 
 * R Package `eurostat`: [https://cran.r-project.org/web/packages/eurostat/index.html](https://cran.r-project.org/web/packages/eurostat/index.html)
 
+* Devtools package: https://cran.r-project.org/web/packages/devtools/index.html
+
+* NUTS local administrative units definition: http://ec.europa.eu/eurostat/web/nuts/local-administrative-units
+
+* A paper on applying ARFIMA models to unemployment data: https://www.jstor.org/stable/20076284
