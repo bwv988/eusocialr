@@ -20,8 +20,10 @@ devtools::install_github("bwv988/eusocialr")
 
 ## Shiny app
 
-Here is a simple R Shiny app to demonstrate some of the packages functions.
+Here is a simple R Shiny app to demonstrate some of the packages functions:
 
-Also, check out the package vignette and function documentation for further details.
+https://bwv988.shinyapps.io/eusocial-viz/
+
+Also, check out the packages vignette and function documentation for further details.
 
 
