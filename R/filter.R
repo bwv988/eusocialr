@@ -10,7 +10,7 @@
 #' @param sex.a Gender
 #' @param geo.s A single location, or list of multiple locations.
 #'
-#' @return Filtered Eurostat data.
+#' @return A tibble of filtered Eurostat data.
 #'
 #' @export
 #'
@@ -62,9 +62,12 @@ filter_eurostat_data = function(data.raw,
 #' @param data.raw The input data table from the Eurostat database.
 #' @param time.s The year for which the data shall be filtered.
 #'
-#' @return Filtered Eurostat data.
+#' @return A tibble of filtered Eurostat data.
+#'
 #' @export
+#'
 #' @import dplyr
+#'
 #' @examples
 #'
 #' library(magrittr)
@@ -82,7 +85,7 @@ filter_nuts2013_data = function(data.raw,
 #' Filter time series of harmonized unemployment rates from the Eurostat database
 #'
 #' Utility function for filtering time series values of harmonized unemployment data
-#' from the Eurostat database.
+#' from the Eurostat database by age, sex, seasonal adjustment, and location.
 #'
 #' @param data.raw The input data table from the Eurostat database.
 #' @param age.a Age group
@@ -90,8 +93,10 @@ filter_nuts2013_data = function(data.raw,
 #' @param a.adj Select seasonally adjusted, or non-adjusted data.
 #' @param geo.s A single geographical location.
 #'
-#' @return Time series of filtered Eurostat data.
+#' @return A tibble of filtered Eurostat time series data.
+#'
 #' @import dplyr
+#'
 #' @export
 #'
 #' @examples

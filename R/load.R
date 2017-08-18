@@ -33,6 +33,8 @@ load_eurostat_data = function(code = "lfst_r_lfu3rt",
 
   # For simplicity, we will store this variable globally.
   # FIXME: This is against best-practices for R packages.
+  gEnv = as.environment(1)
+
   assign(
     var.name,
     get_eurostat(
@@ -40,7 +42,7 @@ load_eurostat_data = function(code = "lfst_r_lfu3rt",
       time_format = tf,
       cache_dir = cache.dir
     ),
-    envir = .GlobalEnv
+    envir = gEnv
   )
 }
 

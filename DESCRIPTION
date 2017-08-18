@@ -18,6 +18,7 @@ Imports: eurostat,
     forecast,
     magrittr,
     readr, 
-    dplyr
+    dplyr, 
+	shiny
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr

@@ -8,7 +8,9 @@
 #' @param model.type What kind of model should be fitted. Possible values: \code{arima, arfima}.
 #'
 #' @return A list containing the fitted model and forecasts.
+#'
 #' @import forecast
+#'
 #' @export
 #'
 #' @examples

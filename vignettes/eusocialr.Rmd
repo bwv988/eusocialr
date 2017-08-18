@@ -1,0 +1,52 @@
+---
+title: "Package `eusocialr`"
+author: "Ralph Schlosser"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Introduction
+
+*Eurostat* -- the European central statistics office  -- collates, stores, analyzes, and makes available a large range of statistical measures collected by the individual EU member countries' statistical authorities. 
+
+As such, it plays a key role in building, as well as maintaining historical records, achieving comparability of statistical results across countries, and in providing a sound basis for increasingly data-driven policy decisions made at a European level.
+
+Most data is made accessible online via the Eurostat website. An R package exists which provides some basic functions to retrieve and work with data from Eurostat: `eurostat`.
+
+Statistics provided by Eurostat are grouped in a number of different themes, e.g. Transport, Economy, Environment, etc.
+
+The present package -- `eusocialr` -- works with socially themed data, particulary data on unemployment. As such, augments `eurostat`'s functionality by:
+
+* Providing functions for simplified filtering of Eurostat data in order to aggregate by age group, gender, country, time
+* Internal data handling and conversion
+* Geospatial and time series plots
+* ARIMA / ARFIMA time series analysis on unemployment data
+
+# Data
+
+# Installation
+
+## Loading data
+
+### Loading one type of data
+
+### Loading NUTS 2013 data
+
+## Filtering data
+
+## Plotting data
+
+### Time series
+
+### Coropleth map
+
+# References and further links
+
+* Eurostat homepage: [http://ec.europa.eu](http://ec.europa.eu)
+
+* R Package `eurostat`: [https://cran.r-project.org/web/packages/eurostat/index.html](https://cran.r-project.org/web/packages/eurostat/index.html)
+
